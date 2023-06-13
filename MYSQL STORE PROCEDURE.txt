@@ -1,0 +1,138 @@
+DELIMITER //
+
+CREATE PROCEDURE InsertRoute(
+    IN p_source VARCHAR(100),
+    IN p_destination VARCHAR(100),
+    IN p_distance VARCHAR(100),
+    IN p_duration VARCHAR(100),
+    IN p_fare INT,
+    IN p_stops VARCHAR(100),
+    IN p_departure TIME,
+    IN p_arrival_time TIME
+)
+BEGIN
+    INSERT INTO routes (source, destination, distance, duration, fare, stops, departure, arrival_time)
+    VALUES (p_source, p_destination, p_distance, p_duration, p_fare, p_stops, p_departure, p_arrival_time);
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE InsertSchedule(
+    IN p_plate_number VARCHAR(100),
+    IN p_route_id INT
+)
+BEGIN
+    INSERT INTO schedule (plate_number, route_id)
+    VALUES (p_plate_number, p_route_id);
+END //
+
+DELIMITER ;
+
+
+CREATE PROCEDURE InsertReservation(
+    IN p_passenger_id INT,
+    IN p_schedule_id INT,
+    IN p_seat_number INT
+)
+BEGIN
+    INSERT INTO reservation (passenger_id, schedule_id, seat_number)
+    VALUES (p_passenger_id, p_schedule_id, p_seat_number);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE InsertPassenger(
+    IN p_name VARCHAR(100),
+    IN p_age INT,
+    IN p_gender VARCHAR(100),
+    IN p_contact INT,
+    IN p_email VARCHAR(100),
+    IN p_address VARCHAR(100),
+    IN p_nationality VARCHAR(100)
+)
+BEGIN
+    INSERT INTO passenger (name, age, gender, contact, email, address, nationality)
+    VALUES (p_name, p_age, p_gender, p_contact, p_email, p_address, p_nationality);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE InsertDriver(
+    IN p_name VARCHAR(100),
+    IN p_license_number VARCHAR(100),
+    IN p_contact_number VARCHAR(100),
+    IN p_email VARCHAR(100),
+    IN p_address VARCHAR(100),
+    IN p_experience VARCHAR(100),
+    IN p_availability VARCHAR(100)
+)
+BEGIN
+    INSERT INTO driver (name, license_number, contact_number, email, address, experience, availability)
+    VALUES (p_name, p_license_number, p_contact_number, p_email, p_address, p_experience, p_availability);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE InsertBus(
+    IN p_plate_number VARCHAR(100),
+    IN p_bus_name VARCHAR(100),
+    IN p_capacity VARCHAR(100),
+    IN p_model VARCHAR(100),
+    IN p_manufacturer VARCHAR(100),
+    IN p_color VARCHAR(100),
+    IN p_fueltype VARCHAR(100),
+    IN p_status VARCHAR(100),
+    IN p_driver_id INT
+)
+BEGIN
+    INSERT INTO bus (plate_number, bus_name, capacity, model, manufacturer, color, fueltype, status, driver_id)
+    VALUES (p_plate_number, p_bus_name, p_capacity, p_model, p_manufacturer, p_color, p_fueltype, p_status, p_driver_id);
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

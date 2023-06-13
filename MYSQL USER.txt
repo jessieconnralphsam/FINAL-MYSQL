@@ -1,0 +1,173 @@
+
+CREATE USER 'SUPER_ADMINSAM'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'SUPER_ADMINSAM'@'%' WITH GRANT OPTION;
+
+-- user:
+CREATE USER 'ADMINSAM'@'%' IDENTIFIED BY 'ADMIN123';
+FLUSH PRIVILEGES;
+
+
+CREATE USER 'AGENTSAM'@'%' IDENTIFIED BY 'AGENT123';
+FLUSH PRIVILEGES;
+
+
+CREATE USER 'PASSENGERSAM'@'%' IDENTIFIED BY 'PASSENGER123';
+FLUSH PRIVILEGES;
+
+
+CREATE USER 'DRIVERSAM'@'%' IDENTIFIED BY 'DRIVER123';
+FLUSH PRIVILEGES;
+-- --------------------------------------------------------------------------------------------
+
+-- Agent:
+-- CREATE ROLES & GRANT ROLES:
+-- Create the role
+
+CREATE ROLE customer_support;
+
+-- Grant privileges to the role:
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `bus_reservation`.`passenger` TO customer_support;
+
+-- Grant the role to a user:
+
+GRANT customer_support TO 'AGENTSAM'@'%';
+
+
+
+-- Create the  role
+
+CREATE ROLE booking_agent;
+
+-- Grant privileges to the role:
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `bus_reservation`.`reservation` TO booking_agent;
+
+-- Grant the role to a user:
+
+GRANT booking_agent TO 'AGENTSAM'@'%';
+
+
+-- Create the role:
+
+CREATE ROLE ticketing_agent;
+
+-- Grant privileges to the role
+GRANT SELECT ON `bus_reservation`.`ticket` TO ticketing_agent;
+
+-- Grant the role to a user
+GRANT ticketing_agent TO 'AGENTSAM'@'%';
+
+-- passenger:
+-- Create the role
+
+CREATE ROLE passenger;
+
+-- Grant privileges to the role:
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `bus_reservation`.`passenger` TO passenger;
+
+-- Grant the role to a user:
+
+GRANT passenger TO 'PASSENGERSAM'@'%';
+
+
+
+-- Create the  role
+
+CREATE ROLE booking;
+
+-- Grant privileges to the role:
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `bus_reservation`.`reservation` TO booking;
+
+-- Grant the role to a user:
+
+GRANT booking TO 'PASSENGERSAM'@'%';
+
+
+-- admin:
+-- Create the role
+
+CREATE ROLE bus_manager;
+
+-- Grant privileges to the role:
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `bus_reservation`.`bus` TO bus_manager;
+
+-- Grant the role to a user:
+
+GRANT bus_manager TO 'ADMINSAM'@'%';
+
+
+-- Create the role:
+
+CREATE ROLE route_manager;
+
+-- Grant privileges to the role: 
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `bus_reservation`.`routes` TO route_manager;
+
+-- Grant the role to a user:
+
+GRANT route_manager TO 'ADMINSAM'@'%';
+
+-- Create the role:
+CREATE ROLE ticketing;
+
+-- Grant privileges to the role:
+GRANT SELECT, DELETE ON `bus_reservation`.`ticket` TO ticketing;
+
+-- Grant the role to a user:
+GRANT ticketing TO 'ADMINSAM'@'%';
+
+-- Create the role:
+CREATE ROLE scheduler;
+
+-- Grant privileges to the role:
+GRANT SELECT, INSERT, UPDATE, DELETE ON `bus_reservation`.`schedule` TO scheduler;
+
+-- Grant the role to a user:
+GRANT scheduler TO 'ADMINSAM'@'%';
+
+
+
+-- driver:
+-- Create the role
+
+CREATE ROLE bus_driver;
+
+-- Grant privileges to the role:
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `bus_reservation`.`driver` TO bus_driver;
+
+-- Grant the role to a user:
+
+GRANT bus_driver TO 'DRIVERSAM'@'%';
+
+
+GRANT EXECUTE ON PROCEDURE bus_reservation.InsertRoute TO 'route_manager';
+GRANT EXECUTE ON PROCEDURE bus_reservation.InsertSchedule TO 'scheduler';
+GRANT EXECUTE ON PROCEDURE bus_reservation.InsertBus TO 'bus_manager';
+GRANT EXECUTE ON PROCEDURE bus_reservation.InsertReservation TO 'booking_agent';
+GRANT EXECUTE ON PROCEDURE bus_reservation.InsertReservation TO 'booking';
+GRANT EXECUTE ON PROCEDURE bus_reservation.InsertPassenger TO 'passenger';
+GRANT EXECUTE ON PROCEDURE bus_reservation.InsertPassenger TO 'customer_support';
+GRANT EXECUTE ON PROCEDURE bus_reservation.InsertDriver TO 'bus_driver';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
